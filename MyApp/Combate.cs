@@ -30,4 +30,25 @@ public class Combate {
       this.perdedor = this.personaje1;
     };
   }
+
+  public void mejorarAtributos() {
+    var random = new Random();
+
+    int fuerza = random.Next(0, 3);
+    int destreza = random.Next(0, 3);
+    int armadura = random.Next(0, 3);
+    int velocidad = random.Next(0, 3);
+
+    this.ganador.datos.Fuerza += fuerza;
+    this.ganador.datos.Destreza += destreza;
+    this.ganador.datos.Armadura += armadura;
+    this.ganador.datos.Velocidad += velocidad;
+    this.ganador.datos.Nivel++;
+
+    Console.WriteLine($"+1 en Nivel");
+    Console.WriteLine($"+{ fuerza } en Fuerza");
+    Console.WriteLine($"+{ destreza } en Destreza");
+    Console.WriteLine($"+{ armadura } en Armadura");
+    Console.WriteLine($"+{ velocidad } en Velocidad");
+  }
 }
