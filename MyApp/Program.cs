@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Net;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 List<Personaje> listadoPersonajes = new List<Personaje>();
 
@@ -53,6 +53,7 @@ void simularTorneo(List<Personaje> listadoPersonajes, string ganadoresCSV) {
   Personaje campeon = listadoPersonajes.First();
   int cantidadParticipantes = listadoPersonajes.Count();
   Combate combate;
+  Lugar lugar = Lugar.obtenerLugarAleatorio();
   
   while (listadoPersonajes.Count() > 1) {
     luchador = listadoPersonajes.ElementAt(0);
@@ -73,14 +74,14 @@ void simularTorneo(List<Personaje> listadoPersonajes, string ganadoresCSV) {
 
   Console.WriteLine($"\nEl CAMPEÓN del torneo es: { campeon.caracteristicas.Nombre! }");
 
-  guardarCampeon(campeon, cantidadParticipantes, ganadoresCSV);
+  guardarCampeon(campeon, cantidadParticipantes, lugar, ganadoresCSV);
 }
 
-void guardarCampeon(Personaje ganador, int cantidadParticipantes, string archivoCSV) {
+void guardarCampeon(Personaje ganador, int cantidadParticipantes, Lugar lugar, string archivoCSV) {
 
   StreamWriter sw = new StreamWriter(archivoCSV, append: true);
 
-  sw.WriteLine($"{ ganador.caracteristicas.Nombre } { ganador.caracteristicas.Apodo },{ cantidadParticipantes },{ DateTime.Now.ToShortDateString() }");
+  sw.WriteLine($"{ ganador.caracteristicas.Nombre } { ganador.caracteristicas.Apodo }, { cantidadParticipantes }, { lugar.Nombre }, { DateTime.Now.ToShortDateString() }");
 
   sw.Close();
 }
