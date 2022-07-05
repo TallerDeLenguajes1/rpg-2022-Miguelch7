@@ -1,11 +1,22 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 public class Personaje {
   public Dato datos;
   public Caracteristica caracteristicas;
 
   public Personaje() {
-    this.datos = new Dato();
-    this.caracteristicas = new Caracteristica();
+    this.datos = Personaje.generarDatosPersonaje();
+    this.caracteristicas = Personaje.generarCaracteristicaPersonaje();
   }
+
+  public Personaje(Dato datos, Caracteristica caracteristicas) {
+    this.datos = datos;
+    this.caracteristicas = caracteristicas;
+  }
+
+  public Dato Datos { get => datos; set => datos = value; }
+  public Caracteristica Caracteristicas { get => caracteristicas; set => caracteristicas = value; }
 
   public void mostrarDatos() {
     Console.WriteLine($"Velocidad: { this.datos.Velocidad }");
@@ -45,6 +56,36 @@ public class Personaje {
     double DanioProvocado = ( Math.Abs( (((ValorDeAtaque * EfectividadDeDisparo) - PoderDeDefensa) / MaximoDanioProvocable) * 100 ) );
 
     personaje.caracteristicas.Salud = Convert.ToInt32(personaje.caracteristicas.Salud - DanioProvocado);
+  }
+
+  static Dato generarDatosPersonaje() {
+
+    var random = new Random();
+    Dato nuevoDato = new Dato();
+
+    nuevoDato.Velocidad = random.Next(1, 11);
+    nuevoDato.Destreza = random.Next(1, 6);
+    nuevoDato.Fuerza = random.Next(1, 11);
+    nuevoDato.Nivel = random.Next(1, 11);
+    nuevoDato.Armadura = random.Next(1, 11);
+
+    return nuevoDato;
+  }
+
+  static Caracteristica generarCaracteristicaPersonaje() {
+
+    Caracteristica nuevaCaracteristica = new Caracteristica();
+
+    DatosPermitidos datosPermitidos = new DatosPermitidos();
+
+    nuevaCaracteristica.Tipo = datosPermitidos.obtenerTipo();
+    nuevaCaracteristica.Nombre = datosPermitidos.obtenerNombre();
+    nuevaCaracteristica.Apodo = datosPermitidos.obtenerApodo();
+    nuevaCaracteristica.FechaNac = datosPermitidos.obtenerFechaNac();
+    nuevaCaracteristica.Edad = nuevaCaracteristica.obtenerEdad(nuevaCaracteristica.FechaNac);
+    nuevaCaracteristica.Salud = 100;
+
+    return nuevaCaracteristica;
   }
 
 }

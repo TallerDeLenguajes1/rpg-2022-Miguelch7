@@ -53,7 +53,7 @@ public class DatosPermitidos {
     return tipos[ this.random.Next(0, tipos.Length) ];
   }
 
-  public DateOnly obtenerFechaNac() {
+  public DateTime obtenerFechaNac() {
 
     int[] mesesCon30Dias = {4 , 6 , 9, 11} ; // Meses con 30 dias: abril , junio , septiembre y noviembre
     int diaMax = 32;
@@ -70,6 +70,6 @@ public class DatosPermitidos {
     int dia = this.random.Next(1, diaMax);
     int year = this.random.Next(1722, 2022);
 
-    return new DateOnly(year, mes, dia);
+    return new DateTime(year, mes, dia);
   }
 }

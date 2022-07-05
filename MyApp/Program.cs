@@ -1,7 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 List<Personaje> listadoPersonajes = new List<Personaje>();
 
 string ganadoresCSV = Directory.GetCurrentDirectory() + "\\ganadores.csv";
+string jugadoresJSON = Directory.GetCurrentDirectory() + "\\jugadores.json";
 
 if ( !File.Exists(ganadoresCSV) ) {
   File.Create(ganadoresCSV);
@@ -9,15 +13,21 @@ if ( !File.Exists(ganadoresCSV) ) {
 
 if (File.Exists(ganadoresCSV)) {
   listarGanadores(ganadoresCSV);
-}
+};
 
-var random = new Random();
+listadoPersonajes = cargarPersonajes(jugadoresJSON);
 
-Console.Write("Ingresa la cantidad de personajes a pelear (Entre 1 y 13): ");
-int cantidadPersonajes = Convert.ToInt32(Console.ReadLine());
+if (listadoPersonajes.Count == 0) {
+  var random = new Random();
 
-for (int i = 0; i < cantidadPersonajes; i++) {
-  listadoPersonajes.Insert(i, new Personaje());
+  Console.Write("Ingresa la cantidad de personajes a pelear (Entre 1 y 13): ");
+  int cantidadPersonajes = Convert.ToInt32(Console.ReadLine());
+
+  for (int i = 0; i < cantidadPersonajes; i++) {
+    listadoPersonajes.Insert(i, new Personaje());
+  };
+
+  guardarPersonajes(listadoPersonajes, jugadoresJSON);
 };
 
 Console.WriteLine("Listado de personajes");
@@ -91,4 +101,35 @@ void listarGanadores(string archivoCSV) {
   Console.WriteLine();
 
   sr.Close();
-}
+};
+
+List<Personaje> cargarPersonajes(string personajesJSON) {
+  List<Personaje> listadoDePeliculas = new List<Personaje>();
+  
+  StreamReader sr = new StreamReader(personajesJSON);
+
+  string listadoDePersonajesJSON = sr.ReadToEnd()!;
+
+  sr.Close();
+
+  if (!string.IsNullOrEmpty(listadoDePersonajesJSON)) {
+    listadoDePeliculas = JsonSerializer.Deserialize<List<Personaje>>(listadoDePersonajesJSON)!;
+  };
+
+  return listadoDePeliculas;
+};
+
+void guardarPersonajes(List<Personaje> listadoDePersonajes, string personajesJSON) {
+
+  if (!File.Exists(personajesJSON)) {
+    File.Create(personajesJSON);
+  };
+
+  string listadoDePersonajesJSON = JsonSerializer.Serialize(listadoDePersonajes);
+
+  StreamWriter sw = new StreamWriter(personajesJSON);
+
+  sw.WriteLine(listadoDePersonajesJSON);
+
+  sw.Close();
+};

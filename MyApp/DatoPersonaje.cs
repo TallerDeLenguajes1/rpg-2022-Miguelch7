@@ -5,17 +5,16 @@ public class Dato {
   private int nivel; // 1 a 10
   private int armadura; // 1 a 10
 
-  public Dato() {
+  public Dato() {}
 
-    var random = new Random();
-
-    this.velocidad = random.Next(1, 11);
-    this.destreza = random.Next(1, 6);
-    this.fuerza = random.Next(1, 11);
-    this.nivel = random.Next(1, 11);
-    this.armadura = random.Next(1, 11);
+  public Dato(int velocidad, int destreza, int fuerza, int nivel, int armadura) {
+    this.velocidad = velocidad;
+    this.destreza = destreza;
+    this.fuerza = fuerza;
+    this.nivel = nivel;
+    this.armadura = armadura;
   }
-
+  
   public int Velocidad { get => velocidad; set => velocidad = value; }
   public int Destreza { get => destreza; set => destreza = value; }
   public int Fuerza { get => fuerza; set => fuerza = value; }
