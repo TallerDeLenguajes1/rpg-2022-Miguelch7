@@ -81,7 +81,7 @@ void guardarCampeon(Personaje ganador, int cantidadParticipantes, Lugar lugar, s
 
   StreamWriter sw = new StreamWriter(archivoCSV, append: true);
 
-  sw.WriteLine($"{ ganador.caracteristicas.Nombre } { ganador.caracteristicas.Apodo }, { cantidadParticipantes }, { lugar.Nombre }, { DateTime.Now.ToShortDateString() }");
+  sw.WriteLine($"{ ganador.caracteristicas.Nombre } { ganador.caracteristicas.Apodo };{ cantidadParticipantes };{ lugar.Nombre };{ DateTime.Now.ToShortDateString() }");
 
   sw.Close();
 }
