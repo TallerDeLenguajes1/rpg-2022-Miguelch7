@@ -15,9 +15,14 @@ public class Combate {
 
   public void simularPelea() {
 
+    Console.WriteLine($"\nLa siguiente pelea es entre { this.personaje1.caracteristicas.Nombre } y { this.personaje2.caracteristicas.Nombre }");
+    Console.WriteLine("FIGHT!");
+
     for (int i = 0; i < 3; i++) {
-      this.personaje1.atacar(this.personaje2);
-      this.personaje2.atacar(this.personaje1);
+      if (this.personaje1.caracteristicas.Salud > 0 && this.personaje2.caracteristicas.Salud > 0) {
+        this.personaje1.atacar(this.personaje2);
+        this.personaje2.atacar(this.personaje1);
+      };
     };
 
     if (this.personaje1.caracteristicas.Salud > this.personaje2.caracteristicas.Salud) {
@@ -29,6 +34,8 @@ public class Combate {
       this.ganador = this.personaje2;
       this.perdedor = this.personaje1;
     };
+
+    Console.WriteLine($"El GANADOR del combate es: { this.ganador.caracteristicas.Nombre }");
   }
 
   public void mejorarAtributos() {

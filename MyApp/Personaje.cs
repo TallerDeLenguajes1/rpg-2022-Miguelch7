@@ -29,7 +29,7 @@ public class Personaje {
     Console.WriteLine($"Tipo: { this.caracteristicas.Tipo }");
     Console.WriteLine($"Nombre: { this.caracteristicas.Nombre }");
     Console.WriteLine($"Apodo: { this.caracteristicas.Apodo }");
-    Console.WriteLine($"Fecha de Nacimiento: { this.caracteristicas.FechaNac }");
+    Console.WriteLine($"Fecha de Nacimiento: { this.caracteristicas.FechaNac.ToShortDateString() }");
     Console.WriteLine($"Edad: { this.caracteristicas.Edad }");
     Console.WriteLine($"Salud: { this.caracteristicas.Salud }");
   }
